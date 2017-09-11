@@ -214,7 +214,7 @@ describe('China UnionPay', function() {
   };
 
   for (var i = 16; i < 20; i++) {
-    for (var j = 622612; j < 622926; j++) {
+    for (var j = 622126; j < 622926; j++) {
       cardNum = j.toString();
       cardNum += cardSuffix;
       chinaUPCheck(i, j, cardNum);
@@ -236,4 +236,33 @@ describe('China UnionPay', function() {
 
 });
 
-describe('should support Switch');
+describe('Switch', function() {
+  var switchTest = [['4903', '4903123456789012'],
+                    ['4905', '4905123456789012'],
+                    ['4911', '4911123456789012'],
+                    ['4936', '4936123456789012'],
+                    ['564182', '5641821234567890'],
+                    ['633110', '6331101234567890'],
+                    ['6333', '6333123456789012'],
+                    ['6759', '6759123456789012']];
+
+  var switchCheck = function(len, prefix, cardNum) {
+    var expect = chai.expect;
+
+    it('has a prefix of ' + prefix + ' and a length of ' + len, function() {
+      expect(detectNetwork(cardNum)).to.equal('Switch');
+    });
+
+    return;
+
+  };
+
+  for (var i = 0; i < switchTest.length; i++) {
+    switchCheck(16, switchTest[i][0], switchTest[i][1]);
+    switchTest[i][1] += '11';
+    switchCheck(18, switchTest[i][0], switchTest[i][1]);
+    switchTest[i][1] += '1';
+    switchCheck(19, switchTest[i][0], switchTest[i][1]);
+  }
+
+});

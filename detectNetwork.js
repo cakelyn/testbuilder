@@ -65,11 +65,11 @@ var detectNetwork = function(cardNumber) {
   }
 
   // Detects China UnionPay
-  // always has a prefix of 622612-622925, 624-626, or 6282-6288
+  // always has a prefix of 622126-622925, 624-626, or 6282-6288
   // and a length of 16-19
   for (var k = 16; k < 20; k++) {
     if(cardNumber.length === k && cardNumber.indexOf('622') === 0) {
-      for (var l = 622612; l < 622926; l++) {
+      for (var l = 622126; l < 622926; l++) {
         if(cardNumber.indexOf(l.toString()) === 0) {
           return "China UnionPay";
         }
@@ -91,8 +91,21 @@ var detectNetwork = function(cardNumber) {
 
 
   // Detects Switch
-  // always has a prefix of 4903, 4905, 4911, 4936, 56182, 633110, 6333, or 6759
+  // always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759
   // and a length of 16, 18, or 19
+  if ((cardNumber.indexOf('4903') === 0 ||
+       cardNumber.indexOf('4905') === 0 ||
+       cardNumber.indexOf('4911') === 0 ||
+       cardNumber.indexOf('4936') === 0 ||
+       cardNumber.indexOf('564182') === 0 ||
+       cardNumber.indexOf('633110') === 0 ||
+       cardNumber.indexOf('6333') === 0 ||
+       cardNumber.indexOf('6759') === 0) &&
+      (cardNumber.length === 16 ||
+       cardNumber.length === 18 ||
+       cardNumber.length === 19)) {
+    return "Switch";
+  }
 
 
   // Detects Visa
